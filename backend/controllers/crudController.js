@@ -23,11 +23,23 @@ const buildQueryOptions = (query) => {
   return options;
 };
 
+const sanitizeRecord = (record) => {
+  if (!record) {
+    return record;
+  }
+
+  const data = typeof record.toJSON === 'function' ? record.toJSON() : record;
+  if (data && Object.prototype.hasOwnProperty.call(data, 'password')) {
+    delete data.password;
+  }
+  return data;
+};
+
 const createCrudController = (model) => ({
   create: async (req, res) => {
     try {
       const record = await model.create(req.body);
-      res.status(201).json(record);
+      res.status(201).json(sanitizeRecord(record));
     } catch (error) {
       res.status(500).json({ message: 'Internal server error', error: error.message });
     }
@@ -37,7 +49,7 @@ const createCrudController = (model) => ({
     try {
       const options = buildQueryOptions(req.query);
       const records = await model.findAll(options);
-      res.json(records);
+      res.json(records.map((record) => sanitizeRecord(record)));
     } catch (error) {
       res.status(500).json({ message: 'Internal server error', error: error.message });
     }
@@ -49,7 +61,7 @@ const createCrudController = (model) => ({
       if (!record) {
         return res.status(404).json({ message: 'Not found' });
       }
-      res.json(record);
+      res.json(sanitizeRecord(record));
     } catch (error) {
       res.status(500).json({ message: 'Internal server error', error: error.message });
     }
@@ -62,7 +74,7 @@ const createCrudController = (model) => ({
         return res.status(404).json({ message: 'Not found' });
       }
       await record.update(req.body);
-      res.json(record);
+      res.json(sanitizeRecord(record));
     } catch (error) {
       res.status(500).json({ message: 'Internal server error', error: error.message });
     }
