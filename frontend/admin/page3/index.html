@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Kelola Dispute</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Dashboard -->
+        <div class="dashboard-header">
+            <div class="header-content">
+                <div class="header-icon">🛡️</div>
+                <div class="header-text">
+                    <h1>Admin Dashboard</h1>
+                    <p>Verifikasi, Monitoring & Pengelolaan Sistem</p>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Verifikasi Pending</span>
+                        <span class="stat-value">342</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Merchant</span>
+                        <span class="stat-value">342</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Transaksi</span>
+                        <span class="stat-value">23</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Revenue</span>
+                        <span class="stat-value">12.8 Juta</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <button class="tab-btn">Dashboard</button>
+            <button class="tab-btn">Verifikasi Merchant (2)</button>
+            <button class="tab-btn active">Kelola Dispute (2)</button>
+            <button class="tab-btn">Monitoring Transaksi</button>
+        </div>
+
+        <!-- Dispute Content -->
+        <div class="dispute-content">
+            <!-- Dispute Detail Card -->
+            <div class="dispute-detail-card">
+                <div class="dispute-header">
+                    <div class="dispute-title-section">
+                        <h2>Service Mesin Cuci Bocor</h2>
+                        <span class="priority-badge medium">Medium</span>
+                    </div>
+                    <span class="status-badge in-review">In Review</span>
+                </div>
+                
+                <div class="order-id">Order ID: ord124</div>
+
+                <!-- Issue Alert -->
+                <div class="issue-alert">
+                    <div class="alert-icon">⚠️</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Customer Tidak Membayar Sisa</div>
+                        <div class="alert-description">
+                            Pekerjaan sudah selesai dan customer sudah konfirmasi, tapi sisa pembayaran tidak masuk.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dispute Info Grid -->
+                <div class="dispute-info-grid">
+                    <div class="info-column">
+                        <div class="info-label">Dilaporkan oleh:</div>
+                        <div class="info-value">Merchant</div>
+                        <div class="info-detail">Teknik Jaya</div>
+                    </div>
+                    <div class="info-column">
+                        <div class="info-label">Pihak terlibat:</div>
+                        <div class="info-value">User</div>
+                        <div class="info-detail">Ani Wijaya</div>
+                    </div>
+                </div>
+
+                <div class="report-date">Dilaporkan pada: 2025-11-27</div>
+
+                <!-- Action Button -->
+                <button class="btn-handle-dispute">
+                    <span class="btn-icon">💬</span>
+                    Tangani Dispute
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
