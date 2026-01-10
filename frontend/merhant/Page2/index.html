@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Dashboard - Sistem Marketplace Jasa Perbaikan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Dashboard -->
+        <div class="dashboard-header">
+            <div class="header-content">
+                <div class="header-icon">⚙️</div>
+                <div class="header-text">
+                    <h1>Merchant Dashboard</h1>
+                    <p>Kelola penawaran & order pekerjaan</p>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Penawaran</span>
+                        <span class="stat-value">342</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Menang Bid</span>
+                        <span class="stat-value">342</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Order Aktif</span>
+                        <span class="stat-value">23</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <span class="stat-label">Order Selesai</span>
+                        <span class="stat-value">76</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <button class="tab-btn">Request Terbaru</button>
+            <button class="tab-btn active">Penawaran Saya (21)</button>
+            <button class="tab-btn">Order Masuk (0)</button>
+        </div>
+
+        <!-- Job Cards List -->
+        <div class="jobs-list">
+            <!-- Job Card 1 with Bid Form (Expanded with Blue Border) -->
+            <div class="job-card expanded">
+                <div class="job-badge">Elektronik</div>
+                <h3 class="job-title">Perbaikan Laptop Mati Total</h3>
+                <p class="job-description">Laptop ASUS tidak bisa menyala sama sekali. Sudah dicoba charge tapi tidak ada respon. Kemungkinan masalah di motherboard atau power supply.</p>
+                
+                <div class="job-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">📍</span>
+                        <span>Tangerang</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">💰</span>
+                        <span>Budget: Rp 500.000</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">👥</span>
+                        <span>8 Penawaran</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">🕐</span>
+                        <span>Posted: 2025-11-28</span>
+                    </div>
+                </div>
+
+                <!-- Bid Form -->
+                <div class="bid-form">
+                    <h4 class="form-title">Ajukan Penawaran</h4>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Harga Penawaran</label>
+                            <input type="text" placeholder="Harga Penawaran (Rp)">
+                        </div>
+                        <div class="form-group">
+                            <label>Estimasi Waktu (Hari)</label>
+                            <input type="number" placeholder="2">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Catatan Tambahan</label>
+                        <textarea placeholder="Jelaskan Detail Pengerjaan"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn-submit">Kirim Penawaran</button>
+                        <button class="btn-cancel">Batal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 2 (Normal State) -->
+            <div class="job-card">
+                <div class="job-badge">Elektronik</div>
+                <h3 class="job-title">Perbaikan Laptop Mati Total</h3>
+                <p class="job-description">Laptop ASUS tidak bisa menyala sama sekali. Sudah dicoba charge tapi tidak ada respon. Kemungkinan masalah di motherboard atau power supply.</p>
+                
+                <div class="job-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">📍</span>
+                        <span>Tangerang</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">💰</span>
+                        <span>Budget: Rp 500.000</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">👥</span>
+                        <span>8 Penawaran</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">🕐</span>
+                        <span>Posted: 2025-11-28</span>
+                    </div>
+                </div>
+
+                <button class="btn-bid">Kirim Penawaran</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
