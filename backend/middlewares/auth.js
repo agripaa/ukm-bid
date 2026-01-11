@@ -24,6 +24,10 @@ const authenticate = async (req, res, next) => {
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
+    if (user.role === 'merchant' && !user.verified) {
+      return res.status(403).json({ message: 'Merchant account pending verification' });
+    }
+
     req.user = { id: user.id, role: user.role };
     return next();
   } catch (error) {

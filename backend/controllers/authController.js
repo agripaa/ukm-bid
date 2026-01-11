@@ -27,6 +27,9 @@ const register = async (req, res) => {
       return res.status(400).json({ message: 'Invalid role' });
     }
 
+    const resolvedRole = role || 'user';
+    const isVerified = resolvedRole === 'user';
+
     const existing = await User.unscoped().findOne({ where: { email } });
     if (existing) {
       return res.status(409).json({ message: 'Email already in use' });
@@ -36,15 +39,21 @@ const register = async (req, res) => {
       name,
       email,
       password,
-      role: role || 'user',
+      role: resolvedRole,
       phone,
       address,
       location_lat,
       location_lng,
+      verified: isVerified,
     });
 
-    const token = signToken(user);
-    return res.status(201).json({ token, user: sanitizeUser(user) });
+    const response = { user: sanitizeUser(user) };
+    if (isVerified) {
+      response.token = signToken(user);
+    } else {
+      response.message = 'Merchant registration pending verification';
+    }
+    return res.status(201).json(response);
   } catch (error) {
     return res.status(500).json({ message: 'Internal server error', error: error.message });
   }
@@ -66,6 +75,10 @@ const login = async (req, res) => {
     const isValid = await user.comparePassword(password);
     if (!isValid) {
       return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    if (user.role === 'merchant' && !user.verified) {
+      return res.status(403).json({ message: 'Merchant account pending verification' });
     }
 
     const token = signToken(user);

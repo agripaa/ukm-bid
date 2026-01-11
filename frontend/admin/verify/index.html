@@ -3,163 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Verifikasi & Monitoring Sistem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Admin Dashboard - Verifikasi Merchant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    </div>
-
-    <div class="hero-section">
-        <div class="hero-header">
-            <div class="hero-icon">👤</div>
+    <header class="admin-hero">
+        <div class="hero-inner">
             <div class="hero-title">
-                <h2>Admin Dashboard</h2>
-                <p>Verifikasi, Monitoring & Pengelolaan Sistem</p>
+                <span class="hero-icon" aria-hidden="true"><i class="fa-solid fa-shield"></i></span>
+                <div>
+                    <h1>Admin Dashboard</h1>
+                    <p>Verifikasi, Monitoring & Pengelolaan Sistem</p>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                    <div class="stat-info">
+                        <span>Verifikasi Pending</span>
+                        <strong id="statPending">0</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true"><i class="fa-solid fa-users"></i></span>
+                    <div class="stat-info">
+                        <span>Total Merchant</span>
+                        <strong id="statMerchants">0</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true"><i class="fa-solid fa-box"></i></span>
+                    <div class="stat-info">
+                        <span>Total Transaksi</span>
+                        <strong id="statTransactions">0</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true"><i class="fa-solid fa-wallet"></i></span>
+                    <div class="stat-info">
+                        <span>Total Revenue</span>
+                        <strong id="statRevenue">0</strong>
+                    </div>
+                </div>
             </div>
         </div>
+    </header>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-icon">⚠️</span>
-                    <span>Verifikasi Pending</span>
-                </div>
-                <div class="stat-value">342</div>
+    <nav class="tab-nav">
+        <a class="tab-btn" href="../dashboard/index.html">Dashboard</a>
+        <a class="tab-btn is-active" href="index.html">Verifikasi Merchant (<span id="navVerifyCount">0</span>)</a>
+    </nav>
+
+    <main class="admin-content">
+        <section class="verify-list" id="verifyList"></section>
+        <div class="empty-state" id="verifyEmpty">Belum ada merchant yang perlu diverifikasi.</div>
+    </main>
+
+    <div class="verify-modal" id="verifyModal" aria-hidden="true">
+        <div class="verify-backdrop" data-verify-close></div>
+        <div class="verify-card" role="dialog" aria-modal="true" aria-labelledby="verifyTitle">
+            <button class="verify-close" type="button" data-verify-close aria-label="Tutup">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="verify-header">
+                <h3 id="verifyTitle">Detail Merchant</h3>
+                <p data-verify-subtitle>Pastikan data sudah sesuai.</p>
             </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-icon">👥</span>
-                    <span>Total Merchant</span>
+            <div class="verify-body">
+                <div class="verify-panel">
+                    <div>
+                        <span class="label">Nama Merchant</span>
+                        <strong data-verify-name>-</strong>
+                    </div>
+                    <div>
+                        <span class="label">Owner</span>
+                        <strong data-verify-owner>-</strong>
+                    </div>
+                    <div>
+                        <span class="label">Email</span>
+                        <strong data-verify-email>-</strong>
+                    </div>
+                    <div>
+                        <span class="label">Telepon</span>
+                        <strong data-verify-phone>-</strong>
+                    </div>
+                    <div>
+                        <span class="label">Kategori</span>
+                        <strong data-verify-category>-</strong>
+                    </div>
+                    <div>
+                        <span class="label">Alamat</span>
+                        <strong data-verify-address>-</strong>
+                    </div>
                 </div>
-                <div class="stat-value">342</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-icon">💰</span>
-                    <span>Total Transaksi</span>
+                <div class="verify-actions">
+                    <button class="btn-secondary" type="button" data-verify-close>Tutup</button>
+                    <button class="btn-reject" type="button" data-verify-action="reject">Reject</button>
+                    <button class="btn-approve" type="button" data-verify-action="approve">Approve</button>
                 </div>
-                <div class="stat-value">23</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-icon">💵</span>
-                    <span>Total Revenue</span>
-                </div>
-                <div class="stat-value">12.8 Juta</div>
             </div>
         </div>
     </div>
 
-    <div class="content-section">
-        <div class="tabs">
-            <div class="tab">Dashboard</div>
-            <div class="tab active">Verifikasi Merchant (2)</div>
-            <div class="tab">Kelola Dispute (2)</div>
-            <div class="tab">Monitoring Transaksi</div>
-        </div>
-
-        <div class="merchant-card">
-            <div class="merchant-header">
-                <div class="merchant-info">
-                    <h3>Service Elektronik Jaya</h3>
-                    <p>Owner: Ahmad Sudraqat</p>
-                </div>
-                <span class="status-badge">Pending</span>
-            </div>
-            <div class="merchant-details">
-                <div class="detail-item">
-                    <span class="detail-icon">✉️</span>
-                    <span>ahmad@servicejaya.com</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">📞</span>
-                    <span>081234567890</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">🏢</span>
-                    <span>Elektronik</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">📍</span>
-                    <span>Jl. Raya Bogor No. 123, Jakarta Timur</span>
-                </div>
-            </div>
-            <div>
-                <button class="btn-primary">
-                <span class="btn-icon">👁️</span>
-                Lihat Detail & Verifikasi
-            </button>
-            </div>
-        </div>
-
-        <div class="merchant-card">
-            <div class="merchant-header">
-                <div class="merchant-info">
-                    <h3>Service Elektronik Jaya</h3>
-                    <p>Owner: Ahmad Sudraqat</p>
-                </div>
-                <span class="status-badge">Pending</span>
-            </div>
-            <div class="merchant-details">
-                <div class="detail-item">
-                    <span class="detail-icon">✉️</span>
-                    <span>ahmad@servicejaya.com</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">📞</span>
-                    <span>081234567890</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">🏢</span>
-                    <span>Elektronik</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">📍</span>
-                    <span>Jl. Raya Bogor No. 123, Jakarta Timur</span>
-                </div>
-            </div>
-            <button class="btn-primary">
-                <span class="btn-icon">👁️</span>
-                Lihat Detail & Verifikasi
-            </button>
-        </div>
-
-        <div class="merchant-card">
-            <div class="merchant-header">
-                <div class="merchant-info">
-                    <h3>Service Elektronik Jaya</h3>
-                    <p>Owner: Ahmad Sudraqat</p>
-                </div>
-                <span class="status-badge">Pending</span>
-            </div>
-            <div class="merchant-details">
-                <div class="detail-item">
-                    <span class="detail-icon">✉️</span>
-                    <span>ahmad@servicejaya.com</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">📞</span>
-                    <span>081234567890</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">🏢</span>
-                    <span>Elektronik</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-icon">📍</span>
-                    <span>Jl. Raya Bogor No. 123, Jakarta Timur</span>
-                </div>
-            </div>
-            <button class="btn-primary">
-                <span class="btn-icon">👁️</span>
-                Lihat Detail & Verifikasi
-            </button>
-        </div>
-    </div>
+    <script src="verify.js"></script>
 </body>
 </html>

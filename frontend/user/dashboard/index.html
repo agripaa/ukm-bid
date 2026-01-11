@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BidFix - User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="topbar-icon" aria-hidden="true">
+                <i class="fa-solid fa-gear"></i>
+            </div>
+            <div class="topbar-text">
+                <h1>Sistem Marketplace Jasa Perbaikan</h1>
+                <p>Berbasis Web dengan Mekanisme Bidding</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <section class="post-card">
+            <h2>Yuk Cari Teknisi Dari Masalah Mu Disini!</h2>
+            <form class="post-form" id="requestForm">
+                <div class="form-grid form-grid--two">
+                    <div class="form-group">
+                        <label for="jobTitle">Judul pekerjaan</label>
+                        <input type="text" id="jobTitle" placeholder="e.g. Perbaikan AC" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="categorySelect">Pilih kategori</label>
+                        <select id="categorySelect">
+                            <option value="">Pilih Kategori</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="jobDescription">Deskripsi detail pekerjaan</label>
+                        <textarea id="jobDescription" placeholder="e.g. AC tidak dingin, silakan periksa dan perbaiki"></textarea>
+                    </div>
+                </div>
+                <div class="form-grid form-grid--two">
+                    <div class="form-group">
+                        <label for="jobBudget">Budget (Rp)</label>
+                        <input type="text" id="jobBudget" placeholder="e.g. Rp. 500.000">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Cari Sekarang</button>
+                <div class="form-alert" id="formAlert" role="status" aria-live="polite"></div>
+            </form>
+        </section>
+
+        <section class="running-section">
+            <div class="section-heading">
+                <h2>Yang Sedang Berjalan</h2>
+                <p>Status request yang sudah diproses oleh merchant.</p>
+            </div>
+            <div class="loading-state" id="orderLoading">Memuat data order...</div>
+            <div class="running-grid" id="orderList"></div>
+            <div class="empty-state" id="orderEmpty">Belum ada order berjalan.</div>
+        </section>
+
+        <section class="requests-section">
+            <div class="section-heading">
+                <h2>Daftar Request</h2>
+                <p>Detail bid bisa dilihat langsung melalui tombol Lihat Detail.</p>
+            </div>
+            <div class="loading-state" id="requestLoading">Memuat data request...</div>
+            <div class="jobs-grid" id="requestList"></div>
+            <div class="empty-state" id="requestEmpty">Belum ada request perbaikan.</div>
+        </section>
+    </main>
+
+    <div class="detail-modal" id="detailModal" aria-hidden="true">
+        <div class="detail-backdrop" data-detail-close></div>
+        <div class="detail-card" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+            <button class="detail-close" type="button" data-detail-close aria-label="Tutup">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+            <div class="detail-header">
+                <div>
+                    <h3 id="detailTitle" data-detail-title>Detail Request</h3>
+                    <p class="detail-subtitle" data-detail-subtitle>-</p>
+                </div>
+                <span class="detail-status" data-detail-status>Status</span>
+            </div>
+            <div class="detail-body">
+                <div class="detail-loading" data-detail-loading>Memuat detail request...</div>
+                <div class="detail-section" data-detail-content>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Kategori</span>
+                            <span class="detail-value" data-detail-category>-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Lokasi</span>
+                            <span class="detail-value" data-detail-location>-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Budget</span>
+                            <span class="detail-value" data-detail-budget>-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Mode Layanan</span>
+                            <span class="detail-value" data-detail-mode>-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Tanggal Request</span>
+                            <span class="detail-value" data-detail-date>-</span>
+                        </div>
+                    </div>
+                    <div class="detail-description">
+                        <h4>Deskripsi Pekerjaan</h4>
+                        <p data-detail-description>-</p>
+                    </div>
+                    <div class="detail-bids">
+                        <h4>Daftar Penawaran</h4>
+                        <div class="bid-list" data-bid-list></div>
+                        <div class="detail-empty" data-bid-empty>Belum ada penawaran untuk request ini.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirm-modal" id="merchantConfirmModal" aria-hidden="true">
+        <div class="confirm-backdrop" data-confirm-close></div>
+        <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+            <button class="confirm-close" type="button" data-confirm-close aria-label="Tutup">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+            <div class="confirm-header">
+                <h3 id="confirmTitle">Pilih Merchant</h3>
+                <p>Pastikan Anda memilih merchant yang tepat.</p>
+            </div>
+            <div class="confirm-body">
+                <div class="confirm-panel">
+                    <h4>Detail Merchant</h4>
+                    <p class="confirm-name" data-confirm-name>-</p>
+                    <p class="confirm-meta" data-confirm-meta>-</p>
+                    <p class="confirm-contact" data-confirm-contact>-</p>
+                </div>
+                <div class="confirm-panel">
+                    <h4>Detail Penawaran</h4>
+                    <p data-confirm-price>-</p>
+                    <p data-confirm-eta>-</p>
+                    <p data-confirm-note>-</p>
+                </div>
+                <div class="confirm-alert" data-confirm-alert role="status" aria-live="polite"></div>
+                <div class="confirm-actions">
+                    <button class="btn-secondary" type="button" data-confirm-close>Batalkan</button>
+                    <button class="btn-primary" type="button" id="confirmSelectMerchant">Ya, Pilih Merchant</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-modal" id="paymentModal" aria-hidden="true">
+        <div class="payment-backdrop" data-payment-close></div>
+        <div class="payment-card" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+            <button class="payment-close" type="button" data-payment-close aria-label="Tutup">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+            <div class="payment-header">
+                <h3 id="paymentTitle">Pelunasan</h3>
+                <p data-payment-subtitle>-</p>
+            </div>
+            <div class="payment-body">
+                <div class="payment-panel">
+                    <h4>Lampiran Bukti</h4>
+                    <div class="payment-proof-list" data-payment-proof></div>
+                </div>
+                <div class="payment-panel">
+                    <h4>Keterangan</h4>
+                    <p class="payment-note" data-payment-note>-</p>
+                </div>
+                <div class="payment-actions">
+                    <button class="btn-secondary" type="button" data-payment-close>Batalkan</button>
+                    <button class="btn-primary" type="button" id="payFinalButton">PAY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
